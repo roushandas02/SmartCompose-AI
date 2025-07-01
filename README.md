@@ -39,17 +39,45 @@ The backend is built with Spring Boot and provides REST APIs for:
 - Generating email replies by sending input to the Gemini API and returning the response.
 - Handling user authentication with JWT-based signin and signup endpoints.
 
+
+### 🔑 Authentication Flow
+
+**Register User**
+
+POST /register
+- Stores hashed password in MySQL.
+
+**Login**
+
+POST /login
+- Validates credentials.
+
+Returns JWT access token.
+
+Access Protected APIs
+Attach **Authorization:** Bearer <token> header.
+
+JWT is validated in a custom filter.
+
+**Role-Based Access**
+
+Endpoints can be secured by roles (hasAuthority("ADMIN")).
+
+
 It is designed for secure, high-performance integration with both the extension and frontend.
 
 ---
 
-## 4. H2 In-Memory Relational Database
+## 4. mySQL Database
 
-The backend uses **H2**, a lightweight in-memory relational database, to store user details such as credentials and authentication tokens. H2 is ideal for development and testing, offering fast access with minimal configuration. Data is managed via Spring Data JPA repositories and can be persisted to disk if needed.
+This project has a robust Spring Boot backend application that implements secure authentication and authorization workflows. It leverages **MySQL** as the primary relational database and uses **Hibernate** as the ORM (Object-Relational Mapping) framework to manage entity persistence and database interactions seamlessly.The default ORM (Object-Relational Mapping) used by Spring Data JPA is Hibernate.  User credentials, roles, and related metadata are stored securely with support for **password hashing** and **token-based authentication.** The backend exposes RESTful APIs for user registration, login, and access control. With a clean, modular architecture, this project is ideal for building scalable services that require reliable user management, secure data persistence, and efficient ORM capabilities.
 
-![Screenshot (1077)](https://github.com/user-attachments/assets/6e94f33e-4213-4770-9288-adc049479e86)
 
-![Screenshot (1076)](https://github.com/user-attachments/assets/88a4c73e-e8d1-4cb0-b11d-e30e74b205fd)
+
+![Screenshot (1121)](https://github.com/user-attachments/assets/34b10fab-5257-4bc0-b851-c9c61558d106)
+
+You don’t need to extend or implement any specific Hibernate classes or interfaces to use it. Simply use standard JPA annotations like @Entity, @Id, and @Column in your entity classes. Hibernate works as the JPA provider behind the scenes, handling persistence automatically.
+
 
 
 
